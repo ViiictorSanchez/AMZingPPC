@@ -1,0 +1,216 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/', ['uses'=>'HomeController@index']);
+
+// Route::get('/home', ['as'=>'home','uses'=>'HomeController@index']);
+
+// Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index'])->name('home');
+
+
+// Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index']);
+
+// Route::get('/dashboard/info', ['as'=>'info','uses'=>'DashboardController@info']);
+
+// Route::get('/token', ['as'=>'info','uses'=>'DashboardController@token']);
+
+// Auth::routes();
+
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+
+
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+
+
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+        // Registration Routes...
+// Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// Route::post('register', 'Auth\RegisterController@register');
+
+        // Password Reset Routes...
+// Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+// Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+// Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+// Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+// agregar el name(el midleware), el nombre de la ruta para que la reconosca en la navegacion
+Route::get('/admin/dashboard', 'HomeController@index')->name('admin/dashboard');
+
+
+
+Route::get('/admin/ppcmanager', 'PpcManagerController@index')->name('admin/ppcmanager');
+
+
+
+// Route::get('/admin/customer/manage', 'CustomerController@index');
+
+
+// ruta para iniciar session con amazon
+// Route::get('/admin/logamazon', 'HomeController@logAmazon');
+
+
+// ruta para obtener el token
+ Route::get('/dashboard/info', 'DashboardController@info');
+
+// Route::get('/dashboard/token', 'DashboardController@token');
+
+
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// ruta para iniciar session con amazon
+// Route::get('/logamazon', 'AmazonController@logAmazon');
+
+
+// ruta para obtener el token
+// Route::get('/token', 'AmazonController@token');
+
+// ruta para obtener el codigo amazon
+// Route::get('/code', 'AmazonController@code');
+
+
+// rutas de testing sdk
+
+Route::get('/register', 'AmazonController@registerPro');
+
+// obtener el perfil por id
+Route::get('/profile/id', 'AmazonController@listProById');
+
+
+// obtener todos los perfiles
+Route::get('/profiles', 'AmazonController@listPro');
+
+
+// refrescar el token
+Route::get('/refresh/token', 'AmazonController@refreshToken');
+
+
+// Route::get('/create/campaigns', ['uses'=>'AmazonController@createCamps']);
+
+Route::get('/view/campaigns', 'AmazonController@listCamps');
+
+Route::get('/update/campaigns', 'AmazonController@updatedCamps');
+
+// Route::get('/edit/butget/{id}', 'AmazonController@updatedCampBud');
+
+// incrementar budget campañas
+// Route::get('/edit/butget/{id}/{budget}', 'AmazonController@updatedCampBud');
+
+// Route::get('/edit/butget/{id}/{budget}', ['as'=>'incre.budget','uses'=>'AmazonController@updatedCampBud']);
+
+
+Route::get('/edit/butget/{id}/{budget}', ['uses'=>'PpcManagerController@updatedCampBud'])->name('/edit/butget/{id}/{budget}');
+
+
+
+
+// decrementar budget campañas
+// Route::get('/edit/butgetde/{id}/{budget}', 'AmazonController@updatedCampBudDe');
+
+Route::get('/edit/butgetde/{id}/{budget}', ['uses'=>'PpcManagerController@updatedCampBudDe'])->name('/edit/butgetde/{id}/{budget}');
+
+// pausar campaña
+// Route::get('/pause/camp/{id}', 'AmazonController@pauseCamp');
+
+
+
+Route::get('/pause/camp/{id}', 'PpcManagerController@pauseCamp')->name('/pause/camp/{id}');
+
+
+// crear campaña
+Route::get('/create/campaigns/{id}', 'PpcManagerController@createCamps')->name('/create/campaigns/{id}');
+
+
+
+// solicitar un reporte por 60 dias
+Route::get('/report/request', 'AmazonController@reportRe');
+
+// obtener la data del reporte
+Route::get('/report', 'AmazonController@report');
+
+
+// Route::put('/edit/butget/{id}', 'AmazonController@updatedCampBud');
+
+
+// Route::get('usuarios/{id}', ['uses'=>'UsuariosController@show']);
+
+
+Route::get('/test', 'PpcManagerController@test');
+
+Route::get('/testr', 'PpcManagerController@testr');
+
+
+Route::get('/testc', 'PpcManagerController@testc');
+
+
+Route::get('/delete', 'PpcManagerController@deleteCamp');
+
+
+
+// crear adgroups
+
+Route::get('/create/ad', 'PpcManagerController@createAdGroup');
+
+
+Route::get('/list/ad', 'PpcManagerController@listAdGroup');
+
+
+// metodos ad groups
+
+Route::get('/edit/bid/{ida}/{bid}', ['uses'=>'PpcManagerController@updatedBid'])->name('/edit/bid/{ida}/{bid}');
+
+Route::get('/edit/bidde/{id}/{bid}', ['uses'=>'PpcManagerController@updatedBidDe'])->name('/edit/bidde/{id}/{bid}');
+
+Route::get('/pause/ad/{ida}', ['uses'=>'PpcManagerController@pauseAd'])->name('/pause/ad/{ida}');
+
+Route::get('/enabled/ad/{ida}', ['uses'=>'PpcManagerController@enabledAd'])->name('/enabled/ad/{ida}');
+
+
+
+
+
+Route::get('/testad', 'PpcManagerController@testad');
+
+
+
+
+Route::post('budget', ['uses'=>'PpcManagerController@budget']);
+
+Route::post('budget/increase', ['uses'=>'PpcManagerController@budgetIncrease']);
+
+Route::post('budget/decrease', ['uses'=>'PpcManagerController@budgetDecrease']);
+
+
+Route::get('/testn', 'PpcManagerController@testn');
+
+
+
+
+
+
+
+
+
+
+
+
+
